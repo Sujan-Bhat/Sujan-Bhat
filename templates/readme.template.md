@@ -35,9 +35,5 @@
 {{SVG_FOOTER}}
 
 <p align="center">
-  <sub>Last updated: <span id="last-updated"></span></sub>
+  <sub>Last updated: November 16, 2026</sub>
 </p>
-
-<script>
-  document.getElementById('last-updated').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-</script>

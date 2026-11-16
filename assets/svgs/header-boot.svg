@@ -1,16 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" width="720" height="280" class="motion" role="img" aria-label="Terminal boot sequence initializing Sujan Bhat developer profile">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 720 280" width="720" height="280" class="motion" role="img" aria-label="Terminal boot sequence initializing Sujan Bhat developer profile">
   <title>Boot Sequence</title>
   <desc>Animated terminal boot sequence showing system initialization</desc>
 
-  <!-- Background -->
-  <rect width="720" height="280" fill="#0d1117"/>
-
-  <!-- Subtle grid pattern -->
   <defs>
-    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+    <pattern id="header-grid" width="20" height="20" patternUnits="userSpaceOnUse">
       <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1f2937" stroke-width="0.5"/>
     </pattern>
-    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+    <filter id="header-glow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
       <feMerge>
         <feMergeNode in="coloredBlur"/>
@@ -18,7 +14,10 @@
       </feMerge>
     </filter>
   </defs>
-  <rect width="720" height="280" fill="url(#grid)" opacity="0.3"/>
+
+  <!-- Background -->
+  <rect width="720" height="280" fill="#0d1117"/>
+  <rect width="720" height="280" fill="url(#header-grid)" opacity="0.3"/>
 
   <!-- Terminal chrome -->
   <rect x="20" y="16" width="680" height="248" rx="8" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
@@ -28,7 +27,7 @@
   <circle cx="86" cy="34" r="7" fill="#3fb950"/>
 
   <!-- Title bar text -->
-  <text x="120" y="40" font-family="JetBrains Mono, monospace" font-size="12" fill="#8b949e">~/github.com/Sujan-Bhat  main </text>
+  <text x="120" y="40" font-family="JetBrains Mono, monospace" font-size="12" fill="#8b949e">~/github.com/Sujan-Bhat :: main ::</text>
 
   <!-- Boot lines container -->
   <g font-family="JetBrains Mono, monospace" font-size="13" fill="#e6edf3" letter-spacing="0.3px">
@@ -93,26 +92,16 @@
       <text x="94" y="0" fill="#8b949e">]</text>
       <text x="112" y="0" fill="#00d9a5"> System online. Awaiting input...</text>
       <animate attributeName="opacity" from="0" to="1" begin="2.1s" dur="0.4s" fill="freeze"/>
-      <!-- Blinking cursor effect on READY -->
+      <!-- Blinking effect on READY using SMIL -->
       <animate attributeName="opacity" values="1;0.3;1" begin="2.5s" dur="1.5s" repeatCount="indefinite"/>
     </g>
 
     <!-- Blinking cursor at end -->
     <g opacity="0" transform="translate(44, 244)">
       <text x="0" y="0" fill="#00d9a5">$</text>
-      <text x="14" y="0" class="cursor">_</text>
+      <text x="14" y="0" fill="#00d9a5">_</text>
       <animate attributeName="opacity" from="0" to="1" begin="2.6s" dur="0.2s" fill="freeze"/>
+      <animate attributeName="opacity" values="1;0" begin="2.8s" dur="1s" repeatCount="indefinite"/>
     </g>
   </g>
-
-  <!-- Cursor blink animation -->
-  <style><![CDATA[
-    .cursor {
-      animation: blink 1s step-end infinite;
-    }
-    @keyframes blink {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0; }
-    }
-  ]]></style>
 </svg>

@@ -13,11 +13,4 @@
     --border: #30363d;
     --glow: rgba(0, 217, 165, 0.15);
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    .motion * {
-      animation: none !important;
-      transition: none !important;
-    }
-  }
 </style>
