@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 100" width="720" height="100" class="motion" role="img" aria-label="GitHub profile statistics: views, followers, stars, repositories">
+  <title>Profile Statistics</title>
+  <desc>Custom animated stat cards for profile views, followers, stars, and repositories</desc>
+
+  <defs>
+    <filter id="card-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <linearGradient id="accent-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00d9a5"/>
+      <stop offset="100%" stop-color="#00b88a"/>
+    </linearGradient>
+  </defs>
+
+  <style><![CDATA[
+    .stat-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .stat-card:hover {
+      transform: translateY(-2px);
+    }
+    .stat-value {
+      animation: countUp 1.5s ease-out forwards;
+    }
+    @keyframes countUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .accent-bar {
+      animation: barGrow 1s ease-out forwards;
+      transform-origin: left center;
+    }
+    @keyframes barGrow {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+  ]]></style>
+
+  <!-- Card 1: Profile Views -->
+  <g class="stat-card">
+    <rect x="10" y="10" width="165" height="80" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1" filter="url(#card-glow)"/>
+    <rect x="14" y="14" width="4" height="52" rx="2" fill="url(#accent-gradient)"/>
+    <text x="28" y="38" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="500" fill="#8b949e" text-transform="uppercase" letter-spacing="0.8px">Profile Views</text>
+    <text x="28" y="64" font-family="JetBrains Mono, monospace" font-size="24" font-weight="700" fill="#e6edf3" class="stat-value" style="animation-delay: 0.1s;">12.4K</text>
+    <rect x="28" y="70" width="120" height="3" rx="1.5" fill="#30363d"/>
+    <rect x="28" y="70" width="78" height="3" rx="1.5" fill="url(#accent-gradient)" class="accent-bar" style="animation-delay: 0.3s;"/>
+  </g>
+
+  <!-- Card 2: Followers -->
+  <g class="stat-card" style="animation-delay: 0.1s;">
+    <rect x="185" y="10" width="165" height="80" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1" filter="url(#card-glow)"/>
+    <rect x="189" y="14" width="4" height="52" rx="2" fill="url(#accent-gradient)"/>
+    <text x="203" y="38" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="500" fill="#8b949e" text-transform="uppercase" letter-spacing="0.8px">Followers</text>
+    <text x="203" y="64" font-family="JetBrains Mono, monospace" font-size="24" font-weight="700" fill="#e6edf3" class="stat-value" style="animation-delay: 0.2s;">1.2K</text>
+    <rect x="203" y="70" width="120" height="3" rx="1.5" fill="#30363d"/>
+    <rect x="203" y="70" width="65" height="3" rx="1.5" fill="url(#accent-gradient)" class="accent-bar" style="animation-delay: 0.4s;"/>
+  </g>
+
+  <!-- Card 3: Total Stars -->
+  <g class="stat-card" style="animation-delay: 0.2s;">
+    <rect x="360" y="10" width="165" height="80" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1" filter="url(#card-glow)"/>
+    <rect x="364" y="14" width="4" height="52" rx="2" fill="url(#accent-gradient)"/>
+    <text x="378" y="38" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="500" fill="#8b949e" text-transform="uppercase" letter-spacing="0.8px">Total Stars</text>
+    <text x="378" y="64" font-family="JetBrains Mono, monospace" font-size="24" font-weight="700" fill="#e6edf3" class="stat-value" style="animation-delay: 0.3s;">3.8K</text>
+    <rect x="378" y="70" width="120" height="3" rx="1.5" fill="#30363d"/>
+    <rect x="378" y="70" width="88" height="3" rx="1.5" fill="url(#accent-gradient)" class="accent-bar" style="animation-delay: 0.5s;"/>
+  </g>
+
+  <!-- Card 4: Repositories -->
+  <g class="stat-card" style="animation-delay: 0.3s;">
+    <rect x="535" y="10" width="165" height="80" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1" filter="url(#card-glow)"/>
+    <rect x="539" y="14" width="4" height="52" rx="2" fill="url(#accent-gradient)"/>
+    <text x="553" y="38" font-family="Space Grotesk, sans-serif" font-size="11" font-weight="500" fill="#8b949e" text-transform="uppercase" letter-spacing="0.8px">Repositories</text>
+    <text x="553" y="64" font-family="JetBrains Mono, monospace" font-size="24" font-weight="700" fill="#e6edf3" class="stat-value" style="animation-delay: 0.4s;">47</text>
+    <rect x="553" y="70" width="120" height="3" rx="1.5" fill="#30363d"/>
+    <rect x="553" y="70" width="42" height="3" rx="1.5" fill="url(#accent-gradient)" class="accent-bar" style="animation-delay: 0.6s;"/>
+  </g>
+
+  <!-- Decorative corner accents -->
+  <g fill="none" stroke="#00d9a5" stroke-width="1.5" opacity="0.3">
+    <path d="M10 10 L10 25 M10 10 L25 10"/>
+    <path d="M175 10 L160 10 M175 10 L175 25"/>
+    <path d="M185 10 L200 10 M185 10 L185 25"/>
+    <path d="M355 10 L340 10 M355 10 L355 25"/>
+    <path d="M360 10 L375 10 M360 10 L360 25"/>
+    <path d="M535 10 L550 10 M535 10 L535 25"/>
+    <path d="M705 10 L690 10 M705 10 L705 25"/>
+  </g>
+</svg>

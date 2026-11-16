@@ -1,0 +1,23 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+  :root {
+    --bg: #0d1117;
+    --bg-elevated: #161b22;
+    --fg: #e6edf3;
+    --fg-muted: #8b949e;
+    --accent: #00d9a5;
+    --accent-dim: #00b88a;
+    --warn: #f0883e;
+    --error: #f85149;
+    --border: #30363d;
+    --glow: rgba(0, 217, 165, 0.15);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .motion * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>
