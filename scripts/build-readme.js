@@ -160,8 +160,8 @@ function resolveValue(path, data) {
 }
 
 function renderSvgTemplate(template, data, tokens) {
-  let rendered = renderTemplate(template, { ...data, ...tokens });
-  rendered = rendered.replace(/\{\{#each (\w+(?:\.\w+)*)\}\}([\s\S]*?)\{\{\/each\}\}/g, (match, arrayPath, itemTemplate) => {
+  // First pass: expand {{#each}} blocks before processing placeholders
+  let rendered = template.replace(/\{\{#each (\w+(?:\.\w+)*)\}\}([\s\S]*?)\{\{\/each\}\}/g, (match, arrayPath, itemTemplate) => {
     const keys = arrayPath.split('.');
     let arr = data;
     for (const k of keys) {
@@ -171,6 +171,9 @@ function renderSvgTemplate(template, data, tokens) {
     if (!Array.isArray(arr)) arr = [];
     return arr.map((item, i) => renderTemplate(itemTemplate, { ...item, ...tokens, index: i })).join('');
   });
+
+  // Second pass: process remaining {{placeholders}} on the fully expanded template
+  rendered = renderTemplate(rendered, { ...data, ...tokens });
   return rendered;
 }
 
