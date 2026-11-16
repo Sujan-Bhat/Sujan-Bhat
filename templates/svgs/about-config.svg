@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 720 300" width="720" height="300" class="motion" role="img" aria-label="About me configuration in YAML format with syntax highlighting">
+  <title>About Me - Config.yaml</title>
+  <desc>YAML configuration file showing developer profile with syntax highlighting</desc>
+
+  <defs>
+    <linearGradient id="about-accent-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="{{accent}}"/>
+      <stop offset="100%" stop-color="{{accentDim}}"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="720" height="300" fill="{{bg}}"/>
+
+  <!-- Terminal chrome -->
+  <rect x="10" y="10" width="700" height="280" rx="8" fill="{{bg}}" stroke="{{border}}" stroke-width="1"/>
+  <rect x="10" y="10" width="700" height="36" rx="8" fill="{{bgElevated}}"/>
+  <circle cx="30" cy="28" r="7" fill="{{error}}"/>
+  <circle cx="52" cy="28" r="7" fill="{{warn}}"/>
+  <circle cx="74" cy="28" r="7" fill="#3fb950"/>
+  <text x="100" y="34" font-family="{{fontMono}}" font-size="12" fill="{{fgMuted}}">$ cat ~/config.yaml</text>
+
+  <!-- Line numbers and content -->
+  <g font-family="{{fontMono}}" font-size="13" transform="translate(20, 60)" letter-spacing="0.3px">
+    <!-- Line 1 -->
+    <g opacity="0" transform="translate(0, 0)">
+      <text x="0" y="0" fill="{{border}}" text-anchor="end" font-size="11">1</text>
+      <text x="35" y="0" fill="{{accent}}">name:</text>
+      <text x="95" y="0" fill="{{warn}}">{{name}}</text>
+      <animate attributeName="opacity" from="0" to="1" begin="0.1s" dur="0.3s" fill="freeze"/>
+      <animate attributeName="transform" from="translate(-15, 0)" to="translate(0, 0)" begin="0.1s" dur="0.3s" fill="freeze" additive="sum"/>
+    </g>
+
+    <!-- Line 2 -->
+    <g opacity="0" transform="translate(0, 24)">
+      <text x="0" y="0" fill="{{border}}" text-anchor="end" font-size="11">2</text>
+      <text x="35" y="0" fill="{{accent}}">role:</text>
+      <text x="95" y="0" fill="{{warn}}">{{role}}</text>
+      <animate attributeName="opacity" from="0" to="1" begin="0.15s" dur="0.3s" fill="freeze"/>
+      <animate attributeName="transform" from="translate(-15, 24)" to="translate(0, 24)" begin="0.15s" dur="0.3s" fill="freeze" additive="sum"/>
+    </g>
+
+    <!-- Line 3 -->
+    <g opacity="0" transform="translate(0, 48)">
+      <text x="0" y="0" fill="{{border}}" text-anchor="end" font-size="11">3</text>
+      <text x="35" y="0" fill="{{accent}}">location:</text>
+      <text x="130" y="0" fill="{{warn}}">{{location}}</text>
+      <animate attributeName="opacity" from="0" to="1" begin="0.2s" dur="0.3s" fill="freeze"/>
+      <animate attributeName="transform" from="translate(-15, 48)" to="translate(0, 48)" begin="0.2s" dur="0.3s" fill="freeze" additive="sum"/>
+    </g>
+
+    <!-- Line 4 -->
+    <g opacity="0" transform="translate(0, 72)">
+      <text x="0" y="0" fill="{{border}}" text-anchor="end" font-size="11">4</text>
+      <text x="35" y="0" fill="{{accent}}">current_focus:</text>
+      <animate attributeName="opacity" from="0" to="1" begin="0.25s" dur="0.3s" fill="freeze"/>
+      <animate attributeName="transform" from="translate(-15, 72)" to="translate(0, 72)" begin="0.25s" dur="0.3s" fill="freeze" additive="sum"/>
+    </g>
+
+    {{#each _focusLines}}
+    <g opacity="0" transform="translate(0, {{yPos}})">
+      <text x="0" y="0" fill="{{border}}" text-anchor="end" font-size="11">{{lineNum}}</text>
+      <text x="35" y="0" fill="{{fgMuted}}">-</text>
+      <text x="50" y="0" fill="{{fg}}">{{text}}</text>
+      <animate attributeName="opacity" from="0" to="1" begin="{{animDelay}}s" dur="0.3s" fill="freeze"/>
+      <animate attributeName="transform" from="translate(-15, {{yFrom}})" to="translate(0, {{yFrom}})" begin="{{animDelay}}s" dur="0.3s" fill="freeze" additive="sum"/>
+    </g>
+    {{/each}}
+
+    <!-- interests label -->
+    <g opacity="0" transform="translate(0, {{_interestsLabelY}})">
+      <text x="0" y="0" fill="{{border}}" text-anchor="end" font-size="11">{{_interestsLabelLine}}</text>
+      <text x="35" y="0" fill="{{accent}}">interests:</text>
+      <animate attributeName="opacity" from="0" to="1" begin="{{_interestsLabelDelay}}s" dur="0.3s" fill="freeze"/>
+      <animate attributeName="transform" from="translate(-15, {{_interestsLabelYFrom}})" to="translate(0, {{_interestsLabelYFrom}})" begin="{{_interestsLabelDelay}}s" dur="0.3s" fill="freeze" additive="sum"/>
+    </g>
+
+    {{#each _interestLines}}
+    <g opacity="0" transform="translate(400, {{yPos}})">
+      <text x="0" y="0" fill="{{border}}" text-anchor="end" font-size="11">{{lineNum}}</text>
+      <text x="35" y="0" fill="{{fgMuted}}">-</text>
+      <text x="50" y="0" fill="{{fg}}">{{label}}</text>
+      <animate attributeName="opacity" from="0" to="1" begin="{{animDelay}}s" dur="0.3s" fill="freeze"/>
+      <animate attributeName="transform" from="translate(-15, {{yFrom}})" to="translate(0, {{yFrom}})" begin="{{animDelay}}s" dur="0.3s" fill="freeze" additive="sum"/>
+    </g>
+    {{/each}}
+
+    <!-- vim line -->
+    <g opacity="0" transform="translate(0, {{_vimY}})">
+      <text x="0" y="0" fill="{{border}}" text-anchor="end" font-size="11">{{_vimLine}}</text>
+      <text x="35" y="0" fill="{{fgMuted}}">#</text>
+      <text x="50" y="0" fill="{{fgMuted}}"> vim: ft=yaml</text>
+      <animate attributeName="opacity" from="0" to="1" begin="1.0s" dur="0.3s" fill="freeze"/>
+      <animate attributeName="transform" from="translate(-15, {{_vimYFrom}})" to="translate(0, {{_vimYFrom}})" begin="1.0s" dur="0.3s" fill="freeze" additive="sum"/>
+    </g>
+
+    <!-- cursor -->
+    <g opacity="0" transform="translate(0, {{_cursorY}})">
+      <text x="0" y="0" fill="{{border}}" text-anchor="end" font-size="11">{{_cursorLine}}</text>
+      <text x="35" y="0" fill="{{accent}}">$</text>
+      <text x="50" y="0" fill="{{accent}}">_</text>
+      <animate attributeName="opacity" from="0" to="1" begin="1.1s" dur="0.3s" fill="freeze"/>
+      <animate attributeName="transform" from="translate(-15, {{_cursorYFrom}})" to="translate(0, {{_cursorYFrom}})" begin="1.1s" dur="0.3s" fill="freeze" additive="sum"/>
+      <animate attributeName="opacity" values="1;0" begin="1.4s" dur="1s" repeatCount="indefinite"/>
+    </g>
+  </g>
+
+  <!-- Vertical divider between columns -->
+  <line x1="380" y1="60" x2="380" y2="280" stroke="{{border}}" stroke-width="0.5" opacity="0.3"/>
+</svg>

@@ -1,0 +1,20 @@
+{
+  "name": "aboutme-readme",
+  "version": "1.0.0",
+  "description": "GitHub Profile README generator with animated terminal-themed SVGs",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-readme.js",
+    "dev": "node scripts/build-readme.js --watch",
+    "minify": "node scripts/minify-svgs.js"
+  },
+  "devDependencies": {
+    "svgo": "^3.3.2"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "js-yaml": "^5.5.0"
+  }
+}

@@ -2,8 +2,6 @@
 
 {{SVG_HEADER}}
 
-{{SVG_STATS}}
-
 {{SVG_SOCIAL}}
 
 ---
@@ -17,12 +15,6 @@
 ## 📋 Config.yaml
 
 {{SVG_ABOUT}}
-
----
-
-## 📦 Repository Index
-
-{{SVG_PROJECTS}}
 
 ---
 

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 720 140" width="720" height="140" class="motion" role="img" aria-label="Social links in command palette style">
+  <title>Social Links - Command Palette</title>
+  <desc>Terminal-style command palette showing social links</desc>
+
+  <defs>
+    <filter id="social-link-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <linearGradient id="social-accent-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="{{accent}}"/>
+      <stop offset="100%" stop-color="{{accentDim}}"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background panel -->
+  <rect x="20" y="10" width="680" height="120" rx="10" fill="{{bgElevated}}" stroke="{{border}}" stroke-width="1"/>
+
+  <!-- Title bar -->
+  <rect x="20" y="10" width="680" height="36" rx="10" fill="{{bg}}"/>
+  <circle cx="42" cy="28" r="7" fill="{{error}}"/>
+  <circle cx="64" cy="28" r="7" fill="{{warn}}"/>
+  <circle cx="86" cy="28" r="7" fill="#3fb950"/>
+
+  <!-- Title text -->
+  <text x="120" y="34" font-family="{{fontMono}}" font-size="12" fill="{{fgMuted}}">⌘K  Links</text>
+  <text x="320" y="34" font-family="{{fontMono}}" font-size="11" fill="{{border}}">──────────────────────────────────────────────────────────────────────────</text>
+
+  {{#each social_links}}
+  <!-- Link {{index}}: {{label}} -->
+  <a xlink:href="{{url}}" target="_blank" rel="noopener noreferrer">
+    <g transform="translate(0, {{add index 50}})">
+      <rect x="20" y="0" width="680" height="32" fill="transparent"/>
+      <!-- Icon -->
+      <g transform="translate(48, 4)">
+        <rect x="0" y="0" width="16" height="16" rx="3" fill="{{icon_color}}"/>
+        <text x="8" y="12" font-size="10" fill="white" text-anchor="middle" font-weight="bold">{{icon}}</text>
+      </g>
+      <!-- Label -->
+      <text x="88" y="20" font-family="{{fontUI}}" font-size="13" font-weight="500" fill="{{fg}}">{{label}}</text>
+      <!-- URL -->
+      <text x="200" y="20" font-family="{{fontMono}}" font-size="12" fill="{{fgMuted}}">{{url}}</text>
+      <!-- Key hint -->
+      <text x="580" y="20" font-family="{{fontMono}}" font-size="11" fill="{{border}}" opacity="0.5">[Enter]</text>
+      <!-- Chevron -->
+      <path d="M630 12 L640 16 L630 20" fill="none" stroke="{{border}}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </a>
+  {{/each}}
+
+  <!-- Divider lines -->
+  <g stroke="{{border}}" stroke-width="0.5" opacity="0.5">
+    <line x1="40" y1="82" x2="680" y2="82"/>
+    <line x1="40" y1="116" x2="680" y2="116"/>
+    <line x1="40" y1="150" x2="680" y2="150"/>
+  </g>
+</svg>
