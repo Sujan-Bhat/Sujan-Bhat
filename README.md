@@ -28,38 +28,10 @@
 
 ---
 
-## 📊 GitHub Analytics
-
-<table>
-  <tr>
-    <td width="50%">
-      <img src="https://github-readme-stats.vercel.app/api?username=Sujan-Bhat&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&cache_seconds=86400" alt="GitHub Stats" />
-    </td>
-    <td width="50%">
-      <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Sujan-Bhat&layout=compact&theme=tokyonight&hide_border=true&cache_seconds=86400&langs_count=10" alt="Top Languages" />
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <img src="https://github-readme-streak-stats.herokuapp.com/?user=Sujan-Bhat&theme=tokyonight&hide_border=true&cache_seconds=86400" alt="GitHub Streak" />
-    </td>
-  </tr>
-</table>
-
----
-
 ## 🏆 GitHub Trophies
 
 <p align="center">
   <img src="https://github-profile-trophy.vercel.app/?username=Sujan-Bhat&theme=tokyonight&no-frame=true&no-bg=true&margin-w=15&margin-h=15&column=7" alt="GitHub Trophies" />
-</p>
-
----
-
-## 📈 Contribution Activity
-
-<p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=Sujan-Bhat&theme=tokyonight&hide_border=true&area=true&cache_seconds=86400" alt="Contribution Graph" />
 </p>
 
 ---
