@@ -1,0 +1,213 @@
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=28&duration=3000&pause=1000&color=7AA2F7&center=true&vCenter=true&width=600&lines=Hi%2C+I'm+Sujan+Bhat;Full-stack+Developer;JavaScript%2FTypeScript+%7C+Python+%7C+C%2FC%2B%2B;Building+scalable+web+applications" alt="Typing SVG" />
+</p>
+
+<p align="center">
+  <a href="https://github.com/Sujan-Bhat">
+    <img src="https://komarev.com/ghpvc/?username=Sujan-Bhat&label=Profile%20Views&color=7AA2F7&style=flat-square" alt="Profile Views" />
+  </a>
+  <a href="https://github.com/Sujan-Bhat?tab=followers">
+    <img src="https://img.shields.io/github/followers/Sujan-Bhat?label=Followers&style=flat-square&color=7AA2F7" alt="Followers" />
+  </a>
+  <a href="https://github.com/Sujan-Bhat?tab=repositories">
+    <img src="https://img.shields.io/github/stars/Sujan-Bhat?label=Stars&style=flat-square&color=7AA2F7" alt="Total Stars" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://www.linkedin.com/in/sujan-bhat/" target="_blank">
+    <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
+  </a>
+  <a href="mailto:sujan.bhat@example.com" target="_blank">
+    <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
+  </a>
+  <a href="https://twitter.com/sujanbhat" target="_blank">
+    <img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter" />
+  </a>
+  <a href="https://sujanbhat.dev" target="_blank">
+    <img src="https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Portfolio" />
+  </a>
+</p>
+
+---
+
+## 📊 GitHub Analytics
+
+<table>
+  <tr>
+    <td width="50%">
+      <img src="https://github-readme-stats.vercel.app/api?username=Sujan-Bhat&show_icons=true&theme=tokyonight&hide_border=true&count_private=true&include_all_commits=true&cache_seconds=86400" alt="GitHub Stats" />
+    </td>
+    <td width="50%">
+      <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Sujan-Bhat&layout=compact&theme=tokyonight&hide_border=true&cache_seconds=86400&langs_count=10" alt="Top Languages" />
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <img src="https://github-readme-streak-stats.herokuapp.com/?user=Sujan-Bhat&theme=tokyonight&hide_border=true&cache_seconds=86400" alt="GitHub Streak" />
+    </td>
+  </tr>
+</table>
+
+---
+
+## 🏆 GitHub Trophies
+
+<p align="center">
+  <img src="https://github-profile-trophy.vercel.app/?username=Sujan-Bhat&theme=tokyonight&no-frame=true&no-bg=true&margin-w=15&margin-h=15&column=7" alt="GitHub Trophies" />
+</p>
+
+---
+
+## 📈 Contribution Activity
+
+<p align="center">
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=Sujan-Bhat&theme=tokyonight&hide_border=true&area=true&cache_seconds=86400" alt="Contribution Graph" />
+</p>
+
+---
+
+## 🛠️ Tech Stack
+
+### Languages
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=js,ts,python,c,cpp" alt="Languages" />
+</p>
+
+### Frontend
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=react,nextjs,html,css,tailwind,sass,vue" alt="Frontend" />
+</p>
+
+### Backend
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=nodejs,express,fastapi,django,postgresql,mongodb,redis,graphql" alt="Backend" />
+</p>
+
+### Tools & Platforms
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=git,docker,linux,vscode,github,githubactions,aws,gcp,vercel,nginx" alt="Tools" />
+</p>
+
+### Testing & Quality
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=jest,vitest,playwright,eslint,prettier" alt="Testing" />
+</p>
+
+---
+
+## 🚀 Featured Projects
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="https://github.com/Sujan-Bhat/your-top-repo-1" target="_blank">
+        <img src="https://github-readme-stats.vercel.app/api/pin/?username=Sujan-Bhat&repo=your-top-repo-1&theme=tokyonight&hide_border=true" alt="Project 1" />
+      </a>
+      <br />
+      <strong>Project Name</strong> — Brief description of what this project does and its key features.
+      <br />
+      <img src="https://img.shields.io/github/stars/Sujan-Bhat/your-top-repo-1?style=social" alt="Stars" />
+      <img src="https://img.shields.io/github/forks/Sujan-Bhat/your-top-repo-1?style=social" alt="Forks" />
+      <img src="https://img.shields.io/github/license/Sujan-Bhat/your-top-repo-1?style=social" alt="License" />
+    </td>
+    <td width="50%" valign="top">
+      <a href="https://github.com/Sujan-Bhat/your-top-repo-2" target="_blank">
+        <img src="https://github-readme-stats.vercel.app/api/pin/?username=Sujan-Bhat&repo=your-top-repo-2&theme=tokyonight&hide_border=true" alt="Project 2" />
+      </a>
+      <br />
+      <strong>Project Name</strong> — Brief description of what this project does and its key features.
+      <br />
+      <img src="https://img.shields.io/github/stars/Sujan-Bhat/your-top-repo-2?style=social" alt="Stars" />
+      <img src="https://img.shields.io/github/forks/Sujan-Bhat/your-top-repo-2?style=social" alt="Forks" />
+      <img src="https://img.shields.io/github/license/Sujan-Bhat/your-top-repo-2?style=social" alt="License" />
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <a href="https://github.com/Sujan-Bhat/your-top-repo-3" target="_blank">
+        <img src="https://github-readme-stats.vercel.app/api/pin/?username=Sujan-Bhat&repo=your-top-repo-3&theme=tokyonight&hide_border=true" alt="Project 3" />
+      </a>
+      <br />
+      <strong>Project Name</strong> — Brief description of what this project does and its key features.
+      <br />
+      <img src="https://img.shields.io/github/stars/Sujan-Bhat/your-top-repo-3?style=social" alt="Stars" />
+      <img src="https://img.shields.io/github/forks/Sujan-Bhat/your-top-repo-3?style=social" alt="Forks" />
+      <img src="https://img.shields.io/github/license/Sujan-Bhat/your-top-repo-3?style=social" alt="License" />
+    </td>
+    <td width="50%" valign="top">
+      <a href="https://github.com/Sujan-Bhat/your-top-repo-4" target="_blank">
+        <img src="https://github-readme-stats.vercel.app/api/pin/?username=Sujan-Bhat&repo=your-top-repo-4&theme=tokyonight&hide_border=true" alt="Project 4" />
+      </a>
+      <br />
+      <strong>Project Name</strong> — Brief description of what this project does and its key features.
+      <br />
+      <img src="https://img.shields.io/github/stars/Sujan-Bhat/your-top-repo-4?style=social" alt="Stars" />
+      <img src="https://img.shields.io/github/forks/Sujan-Bhat/your-top-repo-4?style=social" alt="Forks" />
+      <img src="https://img.shields.io/github/license/Sujan-Bhat/your-top-repo-4?style=social" alt="License" />
+    </td>
+  </tr>
+</table>
+
+<p align="center">
+  <a href="https://github.com/Sujan-Bhat?tab=repositories" target="_blank">
+    <img src="https://img.shields.io/badge/View_All_Repositories-7AA2F7?style=for-the-badge&logo=github&logoColor=white" alt="View All Repositories" />
+  </a>
+</p>
+
+---
+
+## 💡 About Me
+
+```yaml
+name: Sujan Bhat
+role: Full-stack Developer
+location: [Your City, Country]
+current_focus:
+  - Building scalable web applications
+  - Exploring system programming with Rust
+  - Contributing to open source
+learning:
+  - Distributed systems
+  - Cloud native architectures
+  - WebAssembly
+interests:
+  - Open source contribution
+  - Technical writing
+  - Mentoring developers
+  - Hackathons
+```
+
+---
+
+## 📫 Let's Connect
+
+<p align="center">
+  <a href="https://www.linkedin.com/in/sujan-bhat/">
+    <img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Connect" />
+  </a>
+  <a href="mailto:sujan.bhat@example.com">
+    <img src="https://img.shields.io/badge/Email-Contact-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
+  </a>
+  <a href="https://twitter.com/sujanbhat">
+    <img src="https://img.shields.io/badge/Twitter-Follow-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter Follow" />
+  </a>
+</p>
+
+---
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=7AA2F7,BB9AF7,9ECE6A&height=100&section=footer&animation=fadeIn" alt="Footer Wave" />
+</p>
+
+<p align="center">
+  <em>Thanks for visiting my profile! 👋 Feel free to explore my repositories and reach out if you'd like to collaborate.</em>
+</p>
+
+<p align="center">
+  <sub>Last updated: <span id="last-updated"></span></sub>
+</p>
+
+<script>
+  document.getElementById('last-updated').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+</script>
