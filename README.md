@@ -28,14 +28,6 @@
 
 ---
 
-## 🏆 GitHub Trophies
-
-<p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=Sujan-Bhat&theme=tokyonight&no-frame=true&no-bg=true&margin-w=15&margin-h=15&column=7" alt="GitHub Trophies" />
-</p>
-
----
-
 ## 🛠️ Tech Stack
 
 ### Languages
@@ -56,11 +48,6 @@
 ### Tools & Platforms
 <p align="center">
   <img src="https://skillicons.dev/icons?i=git,docker,linux,vscode,github,githubactions,aws,gcp,vercel,nginx" alt="Tools" />
-</p>
-
-### Testing & Quality
-<p align="center">
-  <img src="https://skillicons.dev/icons?i=jest,vitest,playwright,eslint,prettier" alt="Testing" />
 </p>
 
 
