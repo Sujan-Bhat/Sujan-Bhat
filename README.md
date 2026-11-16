@@ -21,9 +21,6 @@
   <a href="mailto:sujan.bhat@example.com" target="_blank">
     <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
   </a>
-  <a href="https://twitter.com/sujanbhat" target="_blank">
-    <img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter" />
-  </a>
   <a href="https://sujanbhat.dev" target="_blank">
     <img src="https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Portfolio" />
   </a>
@@ -94,68 +91,6 @@
   <img src="https://skillicons.dev/icons?i=jest,vitest,playwright,eslint,prettier" alt="Testing" />
 </p>
 
----
-
-## 🚀 Featured Projects
-
-<table>
-  <tr>
-    <td width="50%" valign="top">
-      <a href="https://github.com/Sujan-Bhat/your-top-repo-1" target="_blank">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=Sujan-Bhat&repo=your-top-repo-1&theme=tokyonight&hide_border=true" alt="Project 1" />
-      </a>
-      <br />
-      <strong>Project Name</strong> — Brief description of what this project does and its key features.
-      <br />
-      <img src="https://img.shields.io/github/stars/Sujan-Bhat/your-top-repo-1?style=social" alt="Stars" />
-      <img src="https://img.shields.io/github/forks/Sujan-Bhat/your-top-repo-1?style=social" alt="Forks" />
-      <img src="https://img.shields.io/github/license/Sujan-Bhat/your-top-repo-1?style=social" alt="License" />
-    </td>
-    <td width="50%" valign="top">
-      <a href="https://github.com/Sujan-Bhat/your-top-repo-2" target="_blank">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=Sujan-Bhat&repo=your-top-repo-2&theme=tokyonight&hide_border=true" alt="Project 2" />
-      </a>
-      <br />
-      <strong>Project Name</strong> — Brief description of what this project does and its key features.
-      <br />
-      <img src="https://img.shields.io/github/stars/Sujan-Bhat/your-top-repo-2?style=social" alt="Stars" />
-      <img src="https://img.shields.io/github/forks/Sujan-Bhat/your-top-repo-2?style=social" alt="Forks" />
-      <img src="https://img.shields.io/github/license/Sujan-Bhat/your-top-repo-2?style=social" alt="License" />
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <a href="https://github.com/Sujan-Bhat/your-top-repo-3" target="_blank">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=Sujan-Bhat&repo=your-top-repo-3&theme=tokyonight&hide_border=true" alt="Project 3" />
-      </a>
-      <br />
-      <strong>Project Name</strong> — Brief description of what this project does and its key features.
-      <br />
-      <img src="https://img.shields.io/github/stars/Sujan-Bhat/your-top-repo-3?style=social" alt="Stars" />
-      <img src="https://img.shields.io/github/forks/Sujan-Bhat/your-top-repo-3?style=social" alt="Forks" />
-      <img src="https://img.shields.io/github/license/Sujan-Bhat/your-top-repo-3?style=social" alt="License" />
-    </td>
-    <td width="50%" valign="top">
-      <a href="https://github.com/Sujan-Bhat/your-top-repo-4" target="_blank">
-        <img src="https://github-readme-stats.vercel.app/api/pin/?username=Sujan-Bhat&repo=your-top-repo-4&theme=tokyonight&hide_border=true" alt="Project 4" />
-      </a>
-      <br />
-      <strong>Project Name</strong> — Brief description of what this project does and its key features.
-      <br />
-      <img src="https://img.shields.io/github/stars/Sujan-Bhat/your-top-repo-4?style=social" alt="Stars" />
-      <img src="https://img.shields.io/github/forks/Sujan-Bhat/your-top-repo-4?style=social" alt="Forks" />
-      <img src="https://img.shields.io/github/license/Sujan-Bhat/your-top-repo-4?style=social" alt="License" />
-    </td>
-  </tr>
-</table>
-
-<p align="center">
-  <a href="https://github.com/Sujan-Bhat?tab=repositories" target="_blank">
-    <img src="https://img.shields.io/badge/View_All_Repositories-7AA2F7?style=for-the-badge&logo=github&logoColor=white" alt="View All Repositories" />
-  </a>
-</p>
-
----
 
 ## 💡 About Me
 
@@ -188,9 +123,6 @@ interests:
   </a>
   <a href="mailto:sujan.bhat@example.com">
     <img src="https://img.shields.io/badge/Email-Contact-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
-  </a>
-  <a href="https://twitter.com/sujanbhat">
-    <img src="https://img.shields.io/badge/Twitter-Follow-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter Follow" />
   </a>
 </p>
 
