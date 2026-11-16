@@ -117,6 +117,12 @@ function minifySvg(svgContent) {
   return result.data;
 }
 
+function writeSvgFile(name, svgContent) {
+  const filepath = path.join(SVG_DIR, `${name}.svg`);
+  writeFile(filepath, svgContent);
+  return `assets/svgs/${name}.svg`;
+}
+
 function renderTemplate(template, data) {
   return template.replace(/\{\{([^}]+)\}\}/g, (match, expr) => {
     const trimmed = expr.trim();
@@ -266,15 +272,30 @@ function build() {
     footer: loadTemplateSvg('footer-shutdown'),
   };
 
-  const replacements = {
-    SVG_HEADER: minifySvg(renderSvgTemplate(svgTemplates.header, data, DESIGN_TOKENS)),
-    SVG_SOCIAL: minifySvg(renderSvgTemplate(svgTemplates.social, data, DESIGN_TOKENS)),
-    SVG_TECH_STACK: minifySvg(renderSvgTemplate(svgTemplates.techStack, data, DESIGN_TOKENS)),
-    SVG_ABOUT: minifySvg(renderSvgTemplate(svgTemplates.about, data, DESIGN_TOKENS)),
-    SVG_SNAKE: minifySvg(renderSvgTemplate(svgTemplates.snake, data, DESIGN_TOKENS)),
-    SVG_FOOTER: minifySvg(renderSvgTemplate(svgTemplates.footer, data, DESIGN_TOKENS)),
-    FONTS_CSS: loadFontsCss(),
-  };
+  // Render and write each SVG to assets/svgs/, get markdown image references
+  // Use GIFs for complex animations (header, snake, footer), SVGs for others
+  const svgOutputs = {};
+  for (const [key, svgTemplate] of Object.entries(svgTemplates)) {
+    const rendered = renderSvgTemplate(svgTemplate, data, DESIGN_TOKENS);
+    const minified = minifySvg(rendered);
+    const filepath = writeSvgFile(key, minified);
+    // Map template keys to placeholder names
+    const placeholderKey = key === 'techStack' ? 'SVG_TECH_STACK' : `SVG_${key.toUpperCase()}`;
+
+    // Use GIF for complex animations, SVG for static/interactive ones
+    if (key === 'header') {
+      svgOutputs[placeholderKey] = `![${key}](assets/svgs/header-boot.gif)`;
+    } else if (key === 'snake') {
+      svgOutputs[placeholderKey] = `![${key}](assets/svgs/snake-game.gif)`;
+    } else if (key === 'footer') {
+      svgOutputs[placeholderKey] = `![${key}](assets/svgs/footer-shutdown.gif)`;
+    } else {
+      svgOutputs[placeholderKey] = `![${key}](${filepath})`;
+    }
+  }
+
+  // No FONTS_CSS - GitHub doesn't support <style> blocks
+  const replacements = svgOutputs;
 
   for (const [key, value] of Object.entries(replacements)) {
     const placeholder = `{{${key}}}`;

@@ -1,5 +1,3 @@
-{{FONTS_CSS}}
-
 {{SVG_HEADER}}
 
 {{SVG_SOCIAL}}
