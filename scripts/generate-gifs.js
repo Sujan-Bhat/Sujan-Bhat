@@ -1,71 +1,73 @@
 #!/usr/bin/env node
-
 /**
- * Generate GIFs from animated SVG templates
- * Uses Puppeteer to render SVG animations and capture frames
+ * Generate the animated GIFs referenced by the README.
+ *
+ * Renders each template SVG through the *same* data pipeline as the README
+ * build (so {{name}} and friends are real values, not literal braces), then
+ * seeks the SMIL timeline frame by frame in headless Chrome and encodes the
+ * screenshots into a looping GIF.
+ *
+ * Usage:
+ *   node scripts/generate-gifs.js                 all GIFs
+ *   node scripts/generate-gifs.js snake-game      one GIF (by config name)
  */
 
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import puppeteer from 'puppeteer';
 import GIFEncoder from 'gif-encoder-2';
+import { createCanvas, Image } from 'canvas';
+import {
+  ROOT,
+  paths,
+  loadYaml,
+  enrichData,
+  loadTemplateSvg,
+  renderSvgTemplate,
+  DESIGN_TOKENS,
+} from './lib/render.js';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const PROJECT_ROOT = path.resolve(__dirname, '..');
-const TEMPLATES_DIR = path.join(PROJECT_ROOT, 'templates', 'svgs');
-const ASSETS_DIR = path.join(PROJECT_ROOT, 'assets', 'svgs');
-
-// Design tokens from the project
-const DESIGN_TOKENS = {
-  bg: '#0d1117',
-  bgElevated: '#161b22',
-  fg: '#e6edf3',
-  fgMuted: '#8b949e',
-  accent: '#00d9a5',
-  accentDim: '#00b88a',
-  warn: '#f0883e',
-  error: '#f85149',
-  border: '#30363d',
-  fontMono: "'JetBrains Mono', monospace",
-  fontUI: "'Space Grotesk', sans-serif",
-};
-
-// SVG files to convert (with their animation durations in seconds)
-const SVG_CONFIGS = [
-  {
-    name: 'snake-game',
-    template: 'snake-game.svg',
-    duration: 16, // Full snake path cycle
-    fps: 30,
-    width: 720,
-    height: 360,
-  },
+const CONFIGS = [
   {
     name: 'header-boot',
-    template: 'header-boot.svg',
-    duration: 3, // Boot sequence completes around 2.6s + blinking
-    fps: 30,
+    template: 'header-boot',
+    duration: 3,
+    fps: 20,
     width: 720,
     height: 280,
   },
   {
     name: 'footer-shutdown',
-    template: 'footer-shutdown.svg',
-    duration: 2.5, // Shutdown sequence completes around 2s + blinking
-    fps: 30,
+    template: 'footer-shutdown',
+    duration: 2.5,
+    fps: 20,
     width: 720,
-    height: 140,
+    height: 180,
+  },
+  {
+    name: 'snake-game',
+    template: 'snake-game',
+    duration: 16,
+    // 16s loop at 10fps: the snake only travels ~6px per frame, so this stays
+    // smooth while cutting the file size roughly in half vs 15fps + NeuQuant.
+    fps: 10,
+    width: 720,
+    height: 360,
+    // The snake must actually travel: it used to be frozen in the corner
+    // because animateMotion only worked through <mpath>.
+    verifyMotion: { samples: 4, intervalMs: 1200 },
   },
 ];
 
-function replaceTokens(svgContent) {
-  let result = svgContent;
-  for (const [token, value] of Object.entries(DESIGN_TOKENS)) {
-    const placeholder = `{{${token}}}`;
-    result = result.replaceAll(placeholder, value);
+function renderTemplateSvg(name, data) {
+  const rendered = renderSvgTemplate(loadTemplateSvg(name), data);
+  const leftover = rendered.match(/\{\{[^}]+\}\}/g);
+  if (leftover) {
+    throw new Error(`${name}: unresolved placeholders would be baked into the GIF: ${[
+      ...new Set(leftover),
+    ].join(', ')}`);
   }
-  return result;
+  return rendered;
 }
 
 async function captureFrames(page, config) {
@@ -73,284 +75,201 @@ async function captureFrames(page, config) {
   const frameDelay = 1000 / config.fps;
   const frames = [];
 
-  console.log(`  Capturing ${totalFrames} frames at ${config.fps} FPS for ${config.duration}s...`);
+  console.log(`  Capturing ${totalFrames} frames @ ${config.fps}fps...`);
 
   for (let i = 0; i < totalFrames; i++) {
-    const timestamp = i * frameDelay;
-
-    // For SVG SMIL animations, we need to seek to the specific time
     await page.evaluate((ts) => {
-      // Pause all SMIL animations and set current time
-      const svgs = document.querySelectorAll('svg');
-      svgs.forEach(svg => {
-        // Pause animations
+      document.querySelectorAll('svg').forEach((svg) => {
         svg.pauseAnimations();
-        // Set the current time
         svg.setCurrentTime(ts / 1000);
       });
-    }, timestamp);
+    }, i * frameDelay);
 
-    // Small delay to ensure rendering
-    await new Promise(resolve => setTimeout(resolve, 10));
+    frames.push(
+      await page.screenshot({
+        type: 'png',
+        clip: { x: 0, y: 0, width: config.width, height: config.height },
+      })
+    );
 
-    // Capture frame
-    const frame = await page.screenshot({
-      type: 'png',
-      clip: { x: 0, y: 0, width: config.width, height: config.height },
-    });
-
-    frames.push(frame);
-
-    // Progress indicator
-    if ((i + 1) % 30 === 0 || i === totalFrames - 1) {
-      console.log(`    Frame ${i + 1}/${totalFrames}`);
+    if ((i + 1) % 60 === 0 || i === totalFrames - 1) {
+      process.stdout.write(`\r    frame ${i + 1}/${totalFrames}`);
     }
   }
-
+  process.stdout.write('\n');
   return frames;
 }
 
-async function framesToGif(frames, config, outputPath) {
+function encodeGif(frames, config, outputPath) {
   return new Promise((resolve, reject) => {
-    const encoder = new GIFEncoder(config.width, config.height);
+    // octree + palette reuse: ~40% smaller than the default NeuQuant at the
+    // same visual quality (verified frame-by-frame), and much faster to encode.
+    const encoder = new GIFEncoder(config.width, config.height, 'octree', true);
     const stream = fs.createWriteStream(outputPath);
 
     encoder.createReadStream().pipe(stream);
     encoder.start();
-    encoder.setRepeat(0); // 0 = loop forever
-    encoder.setDelay(1000 / config.fps);
-    encoder.setQuality(10); // Lower = better quality
+    encoder.setRepeat(0); // loop forever
+    encoder.setDelay(Math.round(1000 / config.fps));
+    encoder.setThreshold(98); // reuse the colour table when frames are ~98% identical
 
-    let frameIndex = 0;
+    stream.on('finish', () => {
+      const kb = fs.statSync(outputPath).size / 1024;
+      console.log(`  ✓ ${path.relative(ROOT, outputPath)} (${kb.toFixed(0)} KB)`);
+      resolve(kb);
+    });
+    stream.on('error', reject);
 
-    function addNextFrame() {
-      if (frameIndex >= frames.length) {
+    const canvas = createCanvas(config.width, config.height);
+    const ctx = canvas.getContext('2d');
+    let index = 0;
+
+    const next = () => {
+      if (index >= frames.length) {
         encoder.finish();
         return;
       }
-
-      // Convert PNG buffer to image data
-      const pngBuffer = frames[frameIndex];
-
-      // Use a simple approach: create an ImageData from the PNG
-      // We'll use a canvas to decode the PNG
-      const canvas = document.createElement('canvas');
-      canvas.width = config.width;
-      canvas.height = config.height;
-      const ctx = canvas.getContext('2d');
       const img = new Image();
       img.onload = () => {
         ctx.drawImage(img, 0, 0);
-        const imageData = ctx.getImageData(0, 0, config.width, config.height);
-        encoder.addFrame(imageData.data);
-        frameIndex++;
-        addNextFrame();
+        encoder.addFrame(ctx.getImageData(0, 0, config.width, config.height).data);
+        index += 1;
+        next();
       };
       img.onerror = reject;
-      img.src = `data:image/png;base64,${pngBuffer.toString('base64')}`;
-    }
+      img.src = `data:image/png;base64,${frames[index].toString('base64')}`;
+    };
 
-    // Since we're in Node, we need a different approach
-    // Let's use the encoder's addFrame with raw pixel data
-    // We'll need to decode PNGs - use a different approach
-
-    stream.on('finish', () => {
-      console.log(`  GIF saved: ${outputPath} (${(fs.statSync(outputPath).size / 1024).toFixed(1)} KB)`);
-      resolve();
-    });
-
-    stream.on('error', reject);
-
-    // Use a workaround: write frames using the encoder directly
-    // gif-encoder-2 expects addFrame(ctx) where ctx is a CanvasRenderingContext2D
-    // In Node, we need a different library or approach
+    next();
   });
 }
 
-// Alternative: Use puppeteer's built-in capabilities to generate GIF directly
-async function generateGifWithPuppeteer(config, processedSvg, outputPath) {
+/**
+ * Play the finished GIF and confirm teal pixels (the snake) move between
+ * samples - a regression guard for the animateMotion/<mpath> bug.
+ */
+async function verifyMotion(browser, gifPath, opts) {
+  const page = await browser.newPage();
+  await page.setViewport({ width: 740, height: 400 });
+  const b64 = fs.readFileSync(gifPath).toString('base64');
+  await page.setContent(
+    `<!doctype html><body style="margin:0"><img id="g" src="data:image/gif;base64,${b64}">`,
+    { waitUntil: 'load' }
+  );
+  const el = await page.$('#g');
+  const samples = [];
+
+  for (let i = 0; i < opts.samples; i++) {
+    if (i > 0) await new Promise((r) => setTimeout(r, opts.intervalMs));
+    const shot = await el.screenshot({ type: 'png' });
+    const url = `data:image/png;base64,${shot.toString('base64')}`;
+    samples.push(
+      await page.evaluate(async (u) => {
+        const img = new Image();
+        await new Promise((res, rej) => {
+          img.onload = res;
+          img.onerror = rej;
+          img.src = u;
+        });
+        const c = document.createElement('canvas');
+        c.width = img.width;
+        c.height = img.height;
+        const ctx = c.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        const d = ctx.getImageData(0, 0, c.width, c.height).data;
+        // snake teal (#00d9a5) inside the play field only
+        let sx = 0;
+        let n = 0;
+        for (let y = 60; y < 330; y++) {
+          for (let x = 40; x < 560; x++) {
+            const i = (y * c.width + x) * 4;
+            if (d[i + 1] > 170 && d[i] < 90 && d[i + 2] > 110 && d[i + 2] < 210) {
+              sx += x;
+              n++;
+            }
+          }
+        }
+        return { n, cx: n ? Math.round(sx / n) : null };
+      }, url)
+    );
+  }
+
+  await page.close();
+
+  const positions = new Set(samples.map((s) => `${s.n}:${s.cx}`));
+  console.log(
+    `  motion samples: ${samples.map((s) => `x=${s.cx} (${s.n}px)`).join(', ')}`
+  );
+  if (samples.every((s) => s.n === 0) || positions.size < 2) {
+    throw new Error(
+      `Motion check FAILED for ${path.basename(gifPath)}: the snake is not moving.`
+    );
+  }
+  console.log('  ✓ motion check passed');
+}
+
+async function generate(browser, data, config) {
+  console.log(`\n📽️  ${config.name}.gif`);
+  const outputPath = path.join(paths.svgDir, `${config.name}.gif`);
+  const svg = renderTemplateSvg(config.template, data);
+
+  const page = await browser.newPage();
+  await page.setViewport({ width: config.width, height: config.height });
+  await page.setContent(
+    `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+      * { margin: 0; padding: 0; }
+      body { background: ${DESIGN_TOKENS.bg}; overflow: hidden; }
+      svg { display: block; }
+    </style></head><body>${svg}</body></html>`,
+    { waitUntil: 'load' }
+  );
+  await page.evaluate(() => {
+    document.querySelectorAll('svg').forEach((svg) => svg.unpauseAnimations());
+  });
+
+  try {
+    const frames = await captureFrames(page, config);
+    await encodeGif(frames, config, outputPath);
+  } finally {
+    await page.close();
+  }
+
+  if (config.verifyMotion) {
+    await verifyMotion(browser, outputPath, config.verifyMotion);
+  }
+}
+
+async function main() {
+  console.log('🎬 GIF generation\n');
+
+  const only = process.argv.slice(2).filter((a) => !a.startsWith('-'));
+  const configs = only.length
+    ? CONFIGS.filter((c) => only.includes(c.name))
+    : CONFIGS;
+  if (!configs.length) {
+    throw new Error(`No matching config. Known: ${CONFIGS.map((c) => c.name).join(', ')}`);
+  }
+
+  fs.mkdirSync(paths.svgDir, { recursive: true });
+  const data = enrichData(loadYaml());
+
   const browser = await puppeteer.launch({
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
 
   try {
-    const page = await browser.newPage();
-    await page.setViewport({ width: config.width, height: config.height });
-
-    // Create HTML page with the SVG
-    const htmlContent = `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <style>
-    * { margin: 0; padding: 0; }
-    body { background: ${DESIGN_TOKENS.bg}; overflow: hidden; }
-    svg { display: block; }
-  </style>
-</head>
-<body>
-  ${processedSvg}
-  <script>
-    // Auto-start SMIL animations
-    document.querySelectorAll('svg').forEach(svg => {
-      svg.unpauseAnimations();
-    });
-  </script>
-</body>
-</html>`;
-
-    await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
-
-    // Wait a moment for animations to start
-    await new Promise(resolve => setTimeout(resolve, 500));
-
-    // Use puppeteer to record frames
-    const totalFrames = Math.ceil(config.duration * config.fps);
-    const frameDelay = 1000 / config.fps;
-    const frames = [];
-
-    for (let i = 0; i < totalFrames; i++) {
-      const timestamp = i * frameDelay;
-
-      await page.evaluate((ts) => {
-        const svgs = document.querySelectorAll('svg');
-        svgs.forEach(svg => {
-          svg.pauseAnimations();
-          svg.setCurrentTime(ts / 1000);
-        });
-      }, timestamp);
-
-      await new Promise(resolve => setTimeout(resolve, 5));
-
-      const frame = await page.screenshot({
-        type: 'png',
-        clip: { x: 0, y: 0, width: config.width, height: config.height },
-      });
-
-      frames.push(frame);
-
-      if ((i + 1) % 30 === 0 || i === totalFrames - 1) {
-        console.log(`    Frame ${i + 1}/${totalFrames}`);
-      }
+    for (const config of configs) {
+      await generate(browser, data, config);
     }
-
-    // Now create GIF from frames using a Node-based approach
-    await createGifFromFrames(frames, config, outputPath);
-
   } finally {
     await browser.close();
   }
-}
-
-async function createGifFromFrames(frames, config, outputPath) {
-  // Use gif-encoder-2 with a canvas-like approach
-  // We'll use the 'canvas' package to decode PNGs
-  const { createCanvas, Image } = await import('canvas');
-  const encoder = new GIFEncoder(config.width, config.height);
-  const stream = fs.createWriteStream(outputPath);
-
-  return new Promise((resolve, reject) => {
-    const canvas = createCanvas(config.width, config.height);
-    const ctx = canvas.getContext('2d');
-
-    encoder.createReadStream().pipe(stream);
-    encoder.start();
-    encoder.setRepeat(0);
-    encoder.setDelay(1000 / config.fps);
-    encoder.setQuality(10);
-
-    let frameIndex = 0;
-
-    function processFrame() {
-      if (frameIndex >= frames.length) {
-        encoder.finish();
-        return;
-      }
-
-      const pngBuffer = frames[frameIndex];
-      const img = new Image();
-      img.onload = () => {
-        ctx.drawImage(img, 0, 0);
-        const imageData = ctx.getImageData(0, 0, config.width, config.height);
-        encoder.addFrame(imageData.data);
-        frameIndex++;
-        processFrame();
-      };
-      img.onerror = reject;
-      img.src = `data:image/png;base64,${pngBuffer.toString('base64')}`;
-    }
-
-    stream.on('finish', () => {
-      const stats = fs.statSync(outputPath);
-      console.log(`  ✓ GIF saved: ${outputPath} (${(stats.size / 1024).toFixed(1)} KB)`);
-      resolve();
-    });
-
-    stream.on('error', reject);
-
-    processFrame();
-  });
-}
-
-async function processSvg(config) {
-  console.log(`\n📽️  Processing ${config.name}.svg...`);
-
-  const templatePath = path.join(TEMPLATES_DIR, config.template);
-  const outputPath = path.join(ASSETS_DIR, `${config.name}.gif`);
-
-  if (!fs.existsSync(templatePath)) {
-    console.log(`  ⚠️  Template not found: ${templatePath}`);
-    return;
-  }
-
-  // Read and process template
-  const templateContent = fs.readFileSync(templatePath, 'utf-8');
-  const processedSvg = replaceTokens(templateContent);
-
-  // Generate GIF
-  await generateGifWithPuppeteer(config, processedSvg, outputPath);
-}
-
-async function main() {
-  console.log('🎬 GIF Generation Script');
-  console.log('========================');
-
-  // Ensure output directory exists
-  if (!fs.existsSync(ASSETS_DIR)) {
-    fs.mkdirSync(ASSETS_DIR, { recursive: true });
-  }
-
-  // Check if canvas is available (needed for gif-encoder-2)
-  try {
-    await import('canvas');
-  } catch {
-    console.log('\n📦 Installing canvas dependency...');
-    const { execSync } = await import('child_process');
-    execSync('npm install canvas --save-dev', { cwd: PROJECT_ROOT, stdio: 'inherit' });
-  }
-
-  for (const config of SVG_CONFIGS) {
-    try {
-      await processSvg(config);
-    } catch (error) {
-      console.error(`  ✗ Error processing ${config.name}:`, error.message);
-    }
-  }
 
   console.log('\n✅ GIF generation complete!');
-  console.log(`📁 Output directory: ${ASSETS_DIR}`);
-
-  // List generated files
-  const files = fs.readdirSync(ASSETS_DIR).filter(f => f.endsWith('.gif'));
-  if (files.length > 0) {
-    console.log('\nGenerated GIFs:');
-    for (const file of files) {
-      const stats = fs.statSync(path.join(ASSETS_DIR, file));
-      console.log(`  - ${file} (${(stats.size / 1024).toFixed(1)} KB)`);
-    }
-  }
 }
 
-main().catch(console.error);
+main().catch((error) => {
+  console.error(`\n❌ ${error.message}`);
+  process.exitCode = 1;
+});

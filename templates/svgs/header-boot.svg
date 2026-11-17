@@ -29,68 +29,48 @@
   <!-- Title bar text -->
   <text x="120" y="40" font-family="{{fontMono}}" font-size="12" fill="{{fgMuted}}">~/github.com/Sujan-Bhat :: main ::</text>
 
-  <!-- Boot lines container -->
+  <!-- Boot lines. Each line is one <text> with tspans so bracket spacing is
+       handled by the text engine instead of hand-placed x coordinates. -->
   <g font-family="{{fontMono}}" font-size="13" fill="{{fg}}" letter-spacing="0.3px">
     <!-- Line 1 -->
     <g opacity="0" transform="translate(44, 72)">
-      <text x="0" y="0" fill="{{fgMuted}}">[</text>
-      <text x="14" y="0" fill="#3fb950">OK</text>
-      <text x="42" y="0" fill="{{fgMuted}}">]</text>
-      <text x="58" y="0"> Initializing {{name}} v2.4.1...</text>
+      <text><tspan fill="{{fgMuted}}">[ </tspan><tspan fill="#3fb950">OK</tspan><tspan fill="{{fgMuted}}"> ]</tspan><tspan>  Initializing {{name}} v2.4.1...</tspan></text>
       <animate attributeName="opacity" from="0" to="1" begin="0.2s" dur="0.3s" fill="freeze"/>
     </g>
 
     <!-- Line 2 -->
     <g opacity="0" transform="translate(44, 96)">
-      <text x="0" y="0" fill="{{fgMuted}}">[</text>
-      <text x="14" y="0" fill="#3fb950">OK</text>
-      <text x="42" y="0" fill="{{fgMuted}}">]</text>
-      <text x="58" y="0"> Loading full-stack modules...</text>
+      <text><tspan fill="{{fgMuted}}">[ </tspan><tspan fill="#3fb950">OK</tspan><tspan fill="{{fgMuted}}"> ]</tspan><tspan>  Loading full-stack modules...</tspan></text>
       <animate attributeName="opacity" from="0" to="1" begin="0.5s" dur="0.3s" fill="freeze"/>
     </g>
 
     <!-- Line 3 -->
     <g opacity="0" transform="translate(44, 120)">
-      <text x="0" y="0" fill="{{fgMuted}}">[</text>
-      <text x="14" y="0" fill="#3fb950">OK</text>
-      <text x="42" y="0" fill="{{fgMuted}}">]</text>
-      <text x="58" y="0"> Mounting /dev/skills (js, ts, python, c, cpp)...</text>
+      <text><tspan fill="{{fgMuted}}">[ </tspan><tspan fill="#3fb950">OK</tspan><tspan fill="{{fgMuted}}"> ]</tspan><tspan>  Mounting /dev/skills (js, ts, python, c, cpp)...</tspan></text>
       <animate attributeName="opacity" from="0" to="1" begin="0.8s" dur="0.3s" fill="freeze"/>
     </g>
 
     <!-- Line 4 -->
     <g opacity="0" transform="translate(44, 144)">
-      <text x="0" y="0" fill="{{fgMuted}}">[</text>
-      <text x="14" y="0" fill="#3fb950">OK</text>
-      <text x="42" y="0" fill="{{fgMuted}}">]</text>
-      <text x="58" y="0"> Starting backend services (node, fastapi, django, postgres)...</text>
+      <text><tspan fill="{{fgMuted}}">[ </tspan><tspan fill="#3fb950">OK</tspan><tspan fill="{{fgMuted}}"> ]</tspan><tspan>  Starting backend services (node, fastapi, django, postgres)...</tspan></text>
       <animate attributeName="opacity" from="0" to="1" begin="1.1s" dur="0.3s" fill="freeze"/>
     </g>
 
     <!-- Line 5 -->
     <g opacity="0" transform="translate(44, 168)">
-      <text x="0" y="0" fill="{{fgMuted}}">[</text>
-      <text x="14" y="0" fill="#3fb950">OK</text>
-      <text x="42" y="0" fill="{{fgMuted}}">]</text>
-      <text x="58" y="0"> Launching frontend (react, next, tailwind)...</text>
+      <text><tspan fill="{{fgMuted}}">[ </tspan><tspan fill="#3fb950">OK</tspan><tspan fill="{{fgMuted}}"> ]</tspan><tspan>  Launching frontend (react, next, tailwind)...</tspan></text>
       <animate attributeName="opacity" from="0" to="1" begin="1.4s" dur="0.3s" fill="freeze"/>
     </g>
 
     <!-- Line 6 -->
     <g opacity="0" transform="translate(44, 192)">
-      <text x="0" y="0" fill="{{fgMuted}}">[</text>
-      <text x="14" y="0" fill="#3fb950">OK</text>
-      <text x="42" y="0" fill="{{fgMuted}}">]</text>
-      <text x="58" y="0"> Connecting to github.com/Sujan-Bhat...</text>
+      <text><tspan fill="{{fgMuted}}">[ </tspan><tspan fill="#3fb950">OK</tspan><tspan fill="{{fgMuted}}"> ]</tspan><tspan>  Connecting to github.com/Sujan-Bhat...</tspan></text>
       <animate attributeName="opacity" from="0" to="1" begin="1.7s" dur="0.3s" fill="freeze"/>
     </g>
 
     <!-- Line 7 - READY -->
     <g opacity="0" transform="translate(44, 220)">
-      <text x="0" y="0" fill="{{fgMuted}}">[</text>
-      <text x="14" y="0" fill="{{accent}}" font-weight="700">READY</text>
-      <text x="94" y="0" fill="{{fgMuted}}">]</text>
-      <text x="112" y="0" fill="{{accent}}"> System online. Awaiting input...</text>
+      <text><tspan fill="{{fgMuted}}">[ </tspan><tspan fill="{{accent}}" font-weight="700">READY</tspan><tspan fill="{{fgMuted}}"> ]</tspan><tspan fill="{{accent}}">  System online. Awaiting input...</tspan></text>
       <animate attributeName="opacity" from="0" to="1" begin="2.1s" dur="0.4s" fill="freeze"/>
       <!-- Blinking effect on READY using SMIL -->
       <animate attributeName="opacity" values="1;0.3;1" begin="2.5s" dur="1.5s" repeatCount="indefinite"/>
@@ -98,8 +78,7 @@
 
     <!-- Blinking cursor at end -->
     <g opacity="0" transform="translate(44, 244)">
-      <text x="0" y="0" fill="{{accent}}">$</text>
-      <text x="14" y="0" fill="{{accent}}">_</text>
+      <text fill="{{accent}}">$ _</text>
       <animate attributeName="opacity" from="0" to="1" begin="2.6s" dur="0.2s" fill="freeze"/>
       <animate attributeName="opacity" values="1;0" begin="2.8s" dur="1s" repeatCount="indefinite"/>
     </g>

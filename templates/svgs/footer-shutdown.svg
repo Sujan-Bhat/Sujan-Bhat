@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 720 140" width="720" height="140" class="motion" role="img" aria-label="Terminal shutdown sequence">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 720 180" width="720" height="180" class="motion" role="img" aria-label="Terminal shutdown sequence">
   <title>Shutdown Sequence</title>
   <desc>Animated terminal shutdown sequence mirroring the boot header</desc>
 
@@ -20,11 +20,12 @@
   </defs>
 
   <!-- Background -->
-  <rect width="720" height="140" fill="{{bg}}"/>
-  <rect width="720" height="140" fill="url(#footer-grid)" opacity="0.3"/>
+  <rect width="720" height="180" fill="{{bg}}"/>
+  <rect width="720" height="180" fill="url(#footer-grid)" opacity="0.3"/>
 
-  <!-- Terminal chrome -->
-  <rect x="20" y="10" width="680" height="120" rx="8" fill="{{bg}}" stroke="{{border}}" stroke-width="1"/>
+  <!-- Terminal chrome: tall enough for every line (last line is the cursor
+       at y=158, panel bottom is y=170, canvas ends at y=180) -->
+  <rect x="20" y="10" width="680" height="160" rx="8" fill="{{bg}}" stroke="{{border}}" stroke-width="1"/>
   <rect x="20" y="10" width="680" height="32" rx="8" fill="{{bgElevated}}"/>
   <circle cx="42" cy="26" r="7" fill="{{error}}"/>
   <circle cx="64" cy="26" r="7" fill="{{warn}}"/>
@@ -33,50 +34,39 @@
   <!-- Title bar text -->
   <text x="120" y="32" font-family="{{fontMono}}" font-size="11" fill="{{fgMuted}}">~/github.com/Sujan-Bhat :: main ::</text>
 
-  <!-- Shutdown lines container -->
+  <!-- Shutdown lines (bracket spacing handled by tspans) -->
   <g font-family="{{fontMono}}" font-size="12" fill="{{fg}}" letter-spacing="0.3px">
-    <g opacity="0" transform="translate(44, 54)">
-      <text x="0" y="0" fill="{{fgMuted}}">[</text>
-      <text x="14" y="0" fill="#3fb950">OK</text>
-      <text x="42" y="0" fill="{{fgMuted}}">]</text>
-      <text x="58" y="0"> Saving session...</text>
+    <g opacity="0" transform="translate(44, 58)">
+      <text><tspan fill="{{fgMuted}}">[ </tspan><tspan fill="#3fb950">OK</tspan><tspan fill="{{fgMuted}}"> ]</tspan><tspan>  Saving session...</tspan></text>
       <animate attributeName="opacity" from="0" to="1" begin="0.2s" dur="0.3s" fill="freeze"/>
     </g>
-    <g opacity="0" transform="translate(44, 74)">
-      <text x="0" y="0" fill="{{fgMuted}}">[</text>
-      <text x="14" y="0" fill="#3fb950">OK</text>
-      <text x="42" y="0" fill="{{fgMuted}}">]</text>
-      <text x="58" y="0"> Writing .bash_history...</text>
+    <g opacity="0" transform="translate(44, 78)">
+      <text><tspan fill="{{fgMuted}}">[ </tspan><tspan fill="#3fb950">OK</tspan><tspan fill="{{fgMuted}}"> ]</tspan><tspan>  Writing .bash_history...</tspan></text>
       <animate attributeName="opacity" from="0" to="1" begin="0.5s" dur="0.3s" fill="freeze"/>
     </g>
-    <g opacity="0" transform="translate(44, 94)">
-      <text x="0" y="0" fill="{{fgMuted}}">[</text>
-      <text x="14" y="0" fill="#3fb950">OK</text>
-      <text x="42" y="0" fill="{{fgMuted}}">]</text>
-      <text x="58" y="0"> Closing connections...</text>
+    <g opacity="0" transform="translate(44, 98)">
+      <text><tspan fill="{{fgMuted}}">[ </tspan><tspan fill="#3fb950">OK</tspan><tspan fill="{{fgMuted}}"> ]</tspan><tspan>  Closing connections...</tspan></text>
       <animate attributeName="opacity" from="0" to="1" begin="0.8s" dur="0.3s" fill="freeze"/>
     </g>
-    <g opacity="0" transform="translate(44, 116)">
-      <text x="0" y="0" fill="{{fgMuted}}">[</text>
-      <text x="14" y="0" fill="{{accent}}" font-weight="700">BYE</text>
-      <text x="74" y="0" fill="{{fgMuted}}">]</text>
-      <text x="92" y="0" fill="{{accent}}"> Thanks for visiting!  👋</text>
+    <g opacity="0" transform="translate(44, 118)">
+      <text><tspan fill="{{fgMuted}}">[ </tspan><tspan fill="{{accent}}" font-weight="700">BYE</tspan><tspan fill="{{fgMuted}}"> ]</tspan><tspan fill="{{accent}}">  Thanks for visiting!</tspan></text>
       <animate attributeName="opacity" from="0" to="1" begin="1.2s" dur="0.4s" fill="freeze"/>
     </g>
-    <g opacity="0" transform="translate(44, 136)">
-      <text x="0" y="0" fill="{{fgMuted}}">        github.com/Sujan-Bhat</text>
+    <g opacity="0" transform="translate(44, 138)">
+      <text x="52" fill="{{fgMuted}}">github.com/Sujan-Bhat</text>
       <animate attributeName="opacity" from="0" to="1" begin="1.5s" dur="0.4s" fill="freeze"/>
     </g>
   </g>
 
-  <g opacity="0" transform="translate(44, 156)">
-    <text x="0" y="0" fill="{{accent}}">$</text>
-    <text x="14" y="0" fill="{{accent}}">_</text>
+  <!-- Blinking prompt (inside the panel and inside the canvas) -->
+  <g opacity="0" transform="translate(44, 158)">
+    <text font-family="{{fontMono}}" font-size="12" fill="{{accent}}" letter-spacing="0.3px">$ _</text>
     <animate attributeName="opacity" from="0" to="1" begin="1.8s" dur="0.2s" fill="freeze"/>
     <animate attributeName="opacity" values="1;0" begin="2.0s" dur="1s" repeatCount="indefinite"/>
   </g>
 
-  <g fill="none" stroke="url(#footer-accent-gradient)" stroke-width="1.5" opacity="0.4" transform="translate(0, 130)">
+  <!-- Decorative signal wave, kept clear of the prompt and the panel edge -->
+  <g fill="none" stroke="url(#footer-accent-gradient)" stroke-width="1.5" opacity="0.4" transform="translate(0, 157)">
     <path d="M 20 0 Q 100 10 180 0 T 340 0 T 500 0 T 660 0" />
     <path d="M 20 5 Q 100 -5 180 5 T 340 5 T 500 5 T 660 5" stroke-dasharray="4,2"/>
   </g>

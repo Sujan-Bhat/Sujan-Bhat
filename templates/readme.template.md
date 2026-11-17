@@ -2,6 +2,10 @@
 
 {{SVG_SOCIAL}}
 
+<p align="center">
+{{_socialMd}}
+</p>
+
 ---
 
 ## ⚙️ Module Registry
@@ -20,10 +24,12 @@
 
 {{SVG_SNAKE}}
 
+[Play the real thing → sujanbhat.dev/snake](https://sujanbhat.dev/snake)
+
 ---
 
 {{SVG_FOOTER}}
 
 <p align="center">
-  <sub>Last updated: November 16, 2026</sub>
+  <sub>Last updated: {{lastUpdated}}</sub>
 </p>

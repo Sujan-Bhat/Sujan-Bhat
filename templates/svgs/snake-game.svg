@@ -99,8 +99,8 @@
   <circle cx="74" cy="28" r="7" fill="#3fb950"/>
   <text x="100" y="34" font-family="{{fontMono}}" font-size="12" fill="{{fgMuted}}">$ python3 snake.py --demo</text>
 
-  <!-- Game area -->
-  <g transform="translate(60, 60)">
+  <!-- Game area (starts below the title bar so the score line never collides) -->
+  <g transform="translate(60, 76)">
     <!-- Grid background -->
     <rect x="0" y="0" width="480" height="240" fill="url(#snake-grid-pattern)"/>
     <rect x="0" y="0" width="480" height="240" fill="none" stroke="{{border}}" stroke-width="2" rx="4"/>
@@ -125,30 +125,32 @@
       </circle>
     </g>
 
-    <!-- Snake body segments using animateMotion -->
+    <!-- Snake body segments. animateMotion must reference the path through a
+         <mpath> child: href/xlink:href on animateMotion itself never animates
+         in current Chrome, which left the whole snake stacked in the corner. -->
     <g filter="url(#snake-snake-glow)" fill="url(#snake-snake-gradient)">
       <g>
         <circle r="7" cx="0" cy="0">
-          <animateMotion href="#snake-snake-path" dur="16s" repeatCount="indefinite" rotate="auto"/>
+          <animateMotion dur="16s" repeatCount="indefinite" rotate="auto"><mpath href="#snake-snake-path" xlink:href="#snake-snake-path"/></animateMotion>
         </circle>
         <circle cx="-2" cy="-2" r="1.5" fill="{{bg}}">
-          <animateMotion href="#snake-snake-path" dur="16s" repeatCount="indefinite" rotate="auto"/>
+          <animateMotion dur="16s" repeatCount="indefinite" rotate="auto"><mpath href="#snake-snake-path" xlink:href="#snake-snake-path"/></animateMotion>
         </circle>
         <circle cx="2" cy="-2" r="1.5" fill="{{bg}}">
-          <animateMotion href="#snake-snake-path" dur="16s" repeatCount="indefinite" rotate="auto"/>
+          <animateMotion dur="16s" repeatCount="indefinite" rotate="auto"><mpath href="#snake-snake-path" xlink:href="#snake-snake-path"/></animateMotion>
         </circle>
       </g>
-      <circle r="7" opacity="0.95"><animateMotion href="#snake-snake-path" dur="16s" repeatCount="indefinite" rotate="auto" begin="0.15s"/></circle>
-      <circle r="7" opacity="0.9"><animateMotion href="#snake-snake-path" dur="16s" repeatCount="indefinite" rotate="auto" begin="0.3s"/></circle>
-      <circle r="7" opacity="0.85"><animateMotion href="#snake-snake-path" dur="16s" repeatCount="indefinite" rotate="auto" begin="0.45s"/></circle>
-      <circle r="7" opacity="0.8"><animateMotion href="#snake-snake-path" dur="16s" repeatCount="indefinite" rotate="auto" begin="0.6s"/></circle>
-      <circle r="7" opacity="0.75"><animateMotion href="#snake-snake-path" dur="16s" repeatCount="indefinite" rotate="auto" begin="0.75s"/></circle>
-      <circle r="7" opacity="0.7"><animateMotion href="#snake-snake-path" dur="16s" repeatCount="indefinite" rotate="auto" begin="0.9s"/></circle>
-      <circle r="7" opacity="0.65"><animateMotion href="#snake-snake-path" dur="16s" repeatCount="indefinite" rotate="auto" begin="1.05s"/></circle>
-      <circle r="7" opacity="0.6"><animateMotion href="#snake-snake-path" dur="16s" repeatCount="indefinite" rotate="auto" begin="1.2s"/></circle>
+      <circle r="7" opacity="0.95"><animateMotion dur="16s" repeatCount="indefinite" rotate="auto" begin="0.15s"><mpath href="#snake-snake-path" xlink:href="#snake-snake-path"/></animateMotion></circle>
+      <circle r="7" opacity="0.9"><animateMotion dur="16s" repeatCount="indefinite" rotate="auto" begin="0.3s"><mpath href="#snake-snake-path" xlink:href="#snake-snake-path"/></animateMotion></circle>
+      <circle r="7" opacity="0.85"><animateMotion dur="16s" repeatCount="indefinite" rotate="auto" begin="0.45s"><mpath href="#snake-snake-path" xlink:href="#snake-snake-path"/></animateMotion></circle>
+      <circle r="7" opacity="0.8"><animateMotion dur="16s" repeatCount="indefinite" rotate="auto" begin="0.6s"><mpath href="#snake-snake-path" xlink:href="#snake-snake-path"/></animateMotion></circle>
+      <circle r="7" opacity="0.75"><animateMotion dur="16s" repeatCount="indefinite" rotate="auto" begin="0.75s"><mpath href="#snake-snake-path" xlink:href="#snake-snake-path"/></animateMotion></circle>
+      <circle r="7" opacity="0.7"><animateMotion dur="16s" repeatCount="indefinite" rotate="auto" begin="0.9s"><mpath href="#snake-snake-path" xlink:href="#snake-snake-path"/></animateMotion></circle>
+      <circle r="7" opacity="0.65"><animateMotion dur="16s" repeatCount="indefinite" rotate="auto" begin="1.05s"><mpath href="#snake-snake-path" xlink:href="#snake-snake-path"/></animateMotion></circle>
+      <circle r="7" opacity="0.6"><animateMotion dur="16s" repeatCount="indefinite" rotate="auto" begin="1.2s"><mpath href="#snake-snake-path" xlink:href="#snake-snake-path"/></animateMotion></circle>
     </g>
 
-    <!-- Score display -->
+    <!-- Score display (y=58 absolute: below the title bar, above the grid) -->
     <g font-family="{{fontMono}}" font-size="11" fill="{{fgMuted}}" transform="translate(0, -18)">
       <text x="0" y="0">SCORE:</text>
       <text x="60" y="0" fill="{{accent}}" font-weight="700">0</text>
@@ -159,10 +161,10 @@
     </g>
   </g>
 
-  <!-- Side panel with controls -->
-  <g transform="translate(570, 60)" font-family="{{fontMono}}" font-size="11">
+  <!-- Side panel with controls (140px column, labels stay inside it) -->
+  <g transform="translate(560, 76)" font-family="{{fontMono}}" font-size="11">
     <text x="0" y="0" fill="{{accent}}" font-weight="600" font-size="12" font-family="{{fontUI}}">CONTROLS</text>
-    <line x1="0" y1="8" x2="120" y2="8" stroke="{{border}}" stroke-width="1"/>
+    <line x1="0" y1="8" x2="140" y2="8" stroke="{{border}}" stroke-width="1"/>
     <g fill="{{fg}}">
       <text x="0" y="28">▲  W / Up</text>
       <text x="0" y="48">▼  S / Down</text>
@@ -170,22 +172,22 @@
       <text x="0" y="88">►  D / Right</text>
     </g>
     <g fill="{{fgMuted}}" font-size="10">
-      <text x="85" y="28">Move Up</text>
-      <text x="85" y="48">Move Down</text>
-      <text x="85" y="68">Move Left</text>
-      <text x="85" y="88">Move Right</text>
+      <text x="80" y="28">Move Up</text>
+      <text x="80" y="48">Move Down</text>
+      <text x="80" y="68">Move Left</text>
+      <text x="80" y="88">Move Right</text>
     </g>
-    <line x1="0" y1="104" x2="120" y2="104" stroke="{{border}}" stroke-width="1"/>
+    <line x1="0" y1="104" x2="140" y2="104" stroke="{{border}}" stroke-width="1"/>
     <text x="0" y="122" fill="{{warn}}" font-weight="600">SPACE</text>
     <text x="50" y="122" fill="{{fgMuted}}" font-size="10">Pause/Resume</text>
     <text x="0" y="142" fill="{{warn}}" font-weight="600">ESC</text>
     <text x="50" y="142" fill="{{fgMuted}}" font-size="10">Quit Game</text>
-    <line x1="0" y1="158" x2="120" y2="158" stroke="{{border}}" stroke-width="1"/>
+    <line x1="0" y1="158" x2="140" y2="158" stroke="{{border}}" stroke-width="1"/>
     <a xlink:href="https://sujanbhat.dev/snake" target="_blank" rel="noopener noreferrer">
       <g transform="translate(0, 170)">
-        <rect x="0" y="0" width="120" height="36" rx="6" fill="{{bgElevated}}" stroke="{{accent}}" stroke-width="1.5" filter="url(#snake-snake-glow)"/>
-        <text x="60" y="22" fill="{{accent}}" font-family="{{fontUI}}" font-size="12" font-weight="600" text-anchor="middle">PLAY NOW</text>
-        <text x="60" y="22" fill="{{accent}}" font-family="{{fontUI}}" font-size="12" font-weight="600" text-anchor="middle" opacity="0.5">
+        <rect x="0" y="0" width="140" height="36" rx="6" fill="{{bgElevated}}" stroke="{{accent}}" stroke-width="1.5" filter="url(#snake-snake-glow)"/>
+        <text x="70" y="22" fill="{{accent}}" font-family="{{fontUI}}" font-size="12" font-weight="600" text-anchor="middle">PLAY NOW</text>
+        <text x="70" y="22" fill="{{accent}}" font-family="{{fontUI}}" font-size="12" font-weight="600" text-anchor="middle" opacity="0.5">
           <animate attributeName="opacity" values="0.5;1;0.5" dur="1.5s" repeatCount="indefinite"/>
         </text>
       </g>
@@ -196,8 +198,8 @@
     </g>
   </g>
 
-  <!-- Bottom status bar -->
-  <g font-family="{{fontMono}}" font-size="11" transform="translate(20, 310)">
+  <!-- Bottom status bar (below the grid, clear of the side panel) -->
+  <g font-family="{{fontMono}}" font-size="11" transform="translate(20, 336)">
     <text x="0" y="0" fill="{{fgMuted}}">$</text>
     <text x="16" y="0" fill="{{fg}}"> ./snake.py --demo</text>
     <text x="200" y="0" fill="{{fgMuted}}">│</text>

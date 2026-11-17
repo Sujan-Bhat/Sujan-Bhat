@@ -6,7 +6,9 @@
   "scripts": {
     "build": "node scripts/build-readme.js",
     "dev": "node scripts/build-readme.js --watch",
-    "minify": "node scripts/minify-svgs.js"
+    "gifs": "node scripts/generate-gifs.js",
+    "verify": "node scripts/verify.js",
+    "check": "npm run build && npm run verify"
   },
   "devDependencies": {
     "canvas": "^3.2.3",
