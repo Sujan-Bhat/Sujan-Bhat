@@ -3,7 +3,7 @@
 ![social](assets/svgs/social.svg)
 
 <p align="center">
-<a href="https://www.linkedin.com/in/sujan-bhat/">LinkedIn</a> &middot; <a href="mailto:ssnbhat2005@gmail.com">Email</a> &middot; <a href="https://sujanbhat.dev">Portfolio</a> &middot; <a href="https://github.com/Sujan-Bhat">GitHub</a>
+<a href="https://www.linkedin.com/in/sujan-bhat/">LinkedIn</a> &middot; <a href="mailto:ssnbhat2005@gmail.com">Email</a> &middot; <a href="https://github.com/Sujan-Bhat">GitHub</a>
 </p>
 
 ---
